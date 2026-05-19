@@ -23,7 +23,7 @@ export class UsersController {
 
     @Get('/whoami')
     @UseGuards(AuthGuard)
-    whoAmI(@CurrentUser() user: User) {
+    whoAmI(@CurrentUser() user: User) { //Delete comment next time
         return user;
     }
 
