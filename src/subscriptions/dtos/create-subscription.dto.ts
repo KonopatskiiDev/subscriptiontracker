@@ -2,19 +2,17 @@ import { IsString, IsNumber, IsBoolean, IsDateString } from "class-validator";
 
 export class CreateSubscriptionDto {
     @IsString()
-    name: string;
+    name?: string;
 
     @IsNumber()
-    price: number;
+    price?: number;
 
     @IsString()
-    billingCycle: string;
+    billingCycle?: string;
     
     @IsDateString()
-    nextPaymentDate: Date;
+    nextPaymentDate?: Date;
     
     @IsBoolean()
-    isActive: boolean;
-    @IsNumber()
-    userId: number;
+    isActive?: boolean;
 }
