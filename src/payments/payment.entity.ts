@@ -3,14 +3,14 @@ import {Entity, Column, PrimaryGeneratedColumn} from 'typeorm';
 @Entity()
 export class Payment {
     @PrimaryGeneratedColumn()
-    id: number;
+    id?: number;
 
     @Column()
-    subscriptionId: number;
+    subscriptionId?: number;
 
     @Column()
-    amount: number;
+    amount?: number;
 
     @Column()
-    paidAt: Date;
+    paidAt?: Date;
 }

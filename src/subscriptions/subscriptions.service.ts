@@ -3,7 +3,7 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Subscription } from './subscription.entity';
 import { CreateSubscriptionDto } from './dtos/create-subscription.dto';
-import { UpdateSubscriptionDto } from './dtos/update-subscription.dto';
+
 @Injectable()
 export class SubscriptionsService {
     constructor(@InjectRepository(Subscription) private repo: Repository<Subscription>) {}
