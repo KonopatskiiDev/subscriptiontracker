@@ -7,14 +7,6 @@ import {
 export class UpdatePaymentDto {
     @IsNumber()
     @IsOptional()
-    id?: number;
-
-    @IsNumber()
-    @IsOptional()
-    subscriptionId?: number;
-
-    @IsNumber()
-    @IsOptional()
     amount?: number;
 
     @IsDateString()

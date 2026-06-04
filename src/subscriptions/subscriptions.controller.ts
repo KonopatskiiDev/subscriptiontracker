@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post, UseGuards } from '@nestjs/common';
 import { SubscriptionsService } from './subscriptions.service';
 import { CreateSubscriptionDto } from './dtos/create-subscription.dto';
 import { UpdateSubscriptionDto } from './dtos/update-subscription.dto';
@@ -24,6 +24,16 @@ export class SubscriptionsController {
     @UseGuards(AuthGuard)
     findAllSubscriptions(@CurrentUser() user: User) {
         return this.subscriptionsService.findAll(user.id);
+    }
+
+    @Get('/:id')
+    @UseGuards(AuthGuard)
+    async findSubscription(@Param('id') id: string, @CurrentUser() user: User) {
+        const subscription = await this.subscriptionsService.findOne(parseInt(id), user.id);
+        if (!subscription) {
+            throw new NotFoundException('Subscription not found');
+        }
+        return subscription;
     }
 
     @Delete('/:id')
