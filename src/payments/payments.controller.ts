@@ -20,25 +20,48 @@ export class PaymentsController {
         console.log("Body for post when creating payment:", body);
         return this.paymentsService.create(
             body, 
-            parseInt(subscriptionId)
+            parseInt(subscriptionId),
+            user.id
         );
     }
 
     @Get() 
     @UseGuards(AuthGuard)
-    findAllPayments(@Param('subscriptionId') subscriptionId: string) {
-        return this.paymentsService.findAll(parseInt(subscriptionId))
+    findAllPayments(
+        @Param('subscriptionId') subscriptionId: string, 
+        @CurrentUser() user: User
+    ) {
+        return this.paymentsService.findAll(parseInt(subscriptionId), user.id)
+    }
+
+    @Get('/:id')
+    @UseGuards(AuthGuard)
+    findOnePayment(
+        @Param('id') id: string, 
+        @Param('subscriptionId') subscriptionId: string, 
+        @CurrentUser() user: User
+    ) {
+        return this.paymentsService.findOne(parseInt(id), parseInt(subscriptionId), user.id);
     }
 
     @Delete('/:id')
     @UseGuards(AuthGuard)
-    removePayment(@Param('id') id: string, @Param('subscriptionId') subscriptionId: string) {
-       return this.paymentsService.remove(parseInt(id), parseInt(subscriptionId));
+    removePayment(
+        @Param('id') id: string, 
+        @Param('subscriptionId') subscriptionId: string, 
+        @CurrentUser() user: User
+    ) {
+       return this.paymentsService.remove(parseInt(id), parseInt(subscriptionId), user.id);
     }
 
     @Patch('/:id')
     @UseGuards(AuthGuard)
-    updatePayment(@Param('id') id: string, @Body() body: UpdatePaymentDto, @Param('subscriptionId') subscriptionId: string) {
-        return this.paymentsService.update(parseInt(id), parseInt(subscriptionId), body);
+    updatePayment(
+        @Param('id') id: string,
+        @Param('subscriptionId') subscriptionId: string, 
+        @CurrentUser() user: User,
+        @Body() body: UpdatePaymentDto, 
+    ) {
+        return this.paymentsService.update(parseInt(id), parseInt(subscriptionId), user.id, body);
     }
 }
