@@ -1,0 +1,29 @@
+.navbar {
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+
+    .navbar_logo {
+        color: inherit;
+        font-size: 1.25rem;
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+    .navbar_links {
+        display: flex;
+        gap: 1rem;
+
+        .navbar_link {
+            color: inherit;
+            text-decoration: none;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+
+}

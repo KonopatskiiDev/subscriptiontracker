@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 
+import Navbar from './components/Navbar';
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import SubscriptionsPage from './pages/SubscriptionsPage'
@@ -9,12 +10,16 @@ import './App.css'
 function App() {
 
   return (
-    <Routes>
-      <Route path="/signin" element={<LoginPage />} />
-      <Route path="/signup" element={<RegisterPage />} />
-      <Route path="/subscriptions" element={<SubscriptionsPage />} />
-      <Route path="/subscriptions/:id" element={<SubscriptionPage/>} />
-    </Routes>
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/signin" element={<LoginPage />} />
+        <Route path="/signup" element={<RegisterPage />} />
+        <Route path="/subscriptions" element={<SubscriptionsPage />} />
+        <Route path="/subscriptions/:id" element={<SubscriptionPage/>} />
+      </Routes>
+    </>
   )
 }
 
