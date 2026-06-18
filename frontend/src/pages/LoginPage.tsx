@@ -23,6 +23,7 @@ const LoginPage = () => {
                 }
             )
             console.log("response data:", response.data);
+            
             navigate('/subscriptions');
         } catch (error) {
             console.error("Error occurred:", error);
@@ -37,10 +38,10 @@ const LoginPage = () => {
             <form className="login-form" onSubmit={handleSubmit}>
                 <div className="input-group">
                     <label>Email</label>
-                    <input 
+                    <input
+                        onChange={(e) => setEmail(e.target.value)}
                         type="email"
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}
                     />
                 </div>
 
