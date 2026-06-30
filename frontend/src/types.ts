@@ -3,7 +3,7 @@ export interface ISubscription {
     name: string;
     price: number;
     billingCycle: string;
-    nextPaymentDate: Date;
+    nextPaymentDate: string;
     isActive: boolean;
     userId: number;
 }
