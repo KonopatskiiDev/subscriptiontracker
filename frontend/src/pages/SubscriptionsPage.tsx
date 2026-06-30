@@ -5,19 +5,27 @@ import type { ISubscription } from '../types';
 
 const SubscriptionsPage = () => {
     const [subscriptionsList, setSubscriptionsList] = useState<ISubscription[]>([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
 
     useEffect(() => {
         const getSubscriptions = async () => {
             try {
+                setLoading(true);
                 const response = await api.get('/subscriptions');
                 setSubscriptionsList(response.data);
             } catch (error) {
-                console.error(error);
+                setError('Error has occured: ' + error);
+            } finally {
+                setLoading(false);
             }
         }
 
         getSubscriptions();
     }, [])
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>{error}</p>;
 
     return (
         <>
@@ -28,9 +36,11 @@ const SubscriptionsPage = () => {
                 subscriptionsList.length > 0 ? (
                     <ul>
                         {subscriptionsList.map(subscription => (
-                            <Link to={`/subscriptions/${subscription.id}`}>
-                                <li key={subscription.id}>{subscription.name}</li>
-                            </Link>
+                            <li key={subscription.id}>
+                                <Link to={`/subscriptions/${subscription.id}`}>
+                                    {subscription.name}
+                                </Link>
+                            </li>
                         ))}
                     </ul>
                 ) : (
