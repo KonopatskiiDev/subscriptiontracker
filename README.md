@@ -22,7 +22,7 @@ Ce projet est également l'occasion d'approfondir mes connaissances en NestJS, T
 
 NestJS
 TypeORM
-SQLite (позже PostgreSQL)
+SQLite
 React
 TypeScript
 
