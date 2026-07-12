@@ -4,8 +4,7 @@ import Navbar from './components/Navbar';
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import SubscriptionsPage from './pages/SubscriptionsPage'
-import SubscriptionPage from './pages/SubscriptionPage' 
-import './App.css'
+import SubscriptionPage from './pages/SubscriptionPage'
 
 function App() {
 

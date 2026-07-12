@@ -2,27 +2,38 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { api } from '../api/api';
 import type { ISubscription } from '../types';
+import ModalWindowSubscriptionForm from '../components/ModalWindow/ModalWindowSubscriptionForm';
+import SubscriptionForm from '../components/SubscriptionForm/SubscriptionForm';
 
 const SubscriptionsPage = () => {
     const [subscriptionsList, setSubscriptionsList] = useState<ISubscription[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const getSubscriptions = async () => {
+        try {
+            setLoading(true);
+            const response = await api.get('/subscriptions');
+            setSubscriptionsList(response.data);
+        } catch (error) {
+            setError('Error has occured: ' + error);
+        } finally {
+            setLoading(false);
+        }
+    }
 
     useEffect(() => {
-        const getSubscriptions = async () => {
-            try {
-                setLoading(true);
-                const response = await api.get('/subscriptions');
-                setSubscriptionsList(response.data);
-            } catch (error) {
-                setError('Error has occured: ' + error);
-            } finally {
-                setLoading(false);
-            }
-        }
-
         getSubscriptions();
-    }, [])
+    }, []);
+
+    const openModal = () => {
+        setIsModalOpen(true);
+    }
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    }
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>{error}</p>;
@@ -48,10 +59,21 @@ const SubscriptionsPage = () => {
                 )
             }
 
-            
-            {/* <Link to="/subscriptions">
-                Railway
-            </Link> */}
+            <button onClick={openModal}>
+                Add subscription
+            </button>
+
+            <ModalWindowSubscriptionForm
+                isOpen={isModalOpen}
+                onClose={closeModal}
+            >
+                <SubscriptionForm 
+                    onSuccess={() => {
+                        closeModal();
+                        getSubscriptions();
+                    }}
+                />
+            </ModalWindowSubscriptionForm>
         </>
         
     )

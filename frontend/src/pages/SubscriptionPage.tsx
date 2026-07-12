@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { api } from '../api/api';
 import type { ISubscription } from '../types';
 import { formatDate } from '../utils/formatDate';
+import './SubscriptionPage.scss'
 
 
 const SubscriptionPage = () => {
@@ -34,9 +35,12 @@ const SubscriptionPage = () => {
             
             <p>Price: {subscription.price}</p>
             <p>Next Payment Date: {formatDate(subscription.nextPaymentDate)}</p>
-            <Link to="/subscriptions">
-                Back to Subscriptions
-            </Link>
+            <div className='subscription-actions'>
+                <button>Edit subscription</button>
+                <Link to="/subscriptions">
+                    Back to Subscriptions
+                </Link>
+            </div>
         </>
         
     )

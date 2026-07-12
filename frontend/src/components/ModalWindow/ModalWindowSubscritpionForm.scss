@@ -1,0 +1,38 @@
+.modal-overlay {
+    align-items: center;
+    background: rgba(0,0,0,.5);
+    display: flex;
+    justify-content: center;
+    inset: 0;
+    position: fixed;
+
+    .modal-content {
+        background: white;
+        border-radius: 10px;
+        min-width: 500px;
+        //padding: 1rem;
+        position: relative;
+
+        .modal-header {
+            align-items: center;
+            border-bottom: 1px solid rgba(0,0,0,.5);
+            display: flex;
+            justify-content: space-between;
+            margin: 0 0 1rem;
+            padding: 1rem;
+
+            h1 {
+                font-size: 24px;
+                margin: 0;
+            }
+
+            .modal-close {
+                height: 2rem;
+                // position: absolute;
+                // right: 15px;
+                // top: 15px;
+            }
+        }
+        
+    }
+}

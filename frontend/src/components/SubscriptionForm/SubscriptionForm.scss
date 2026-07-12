@@ -1,0 +1,10 @@
+form {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+
+    .entered-data-block {
+        margin: 0 0 10px;
+    }
+}
