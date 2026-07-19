@@ -2,12 +2,13 @@ import type { ReactNode } from "react";
 import './ModalWindowSubscritpionForm.scss';
 
 interface IModalProps {
-    isOpen: boolean;
-    onClose: () => void;
     children: ReactNode;
+    isOpen: boolean;
+    mode: string;
+    onClose: () => void;
 }
 
-const ModalWindowSubscriptionForm = ({isOpen, onClose, children}: IModalProps) => {
+const ModalWindowSubscriptionForm = ({isOpen, onClose, children, mode}: IModalProps) => {
     if (!isOpen) return null;
 
     return (
@@ -17,7 +18,7 @@ const ModalWindowSubscriptionForm = ({isOpen, onClose, children}: IModalProps) =
                 onClick={(e) => e.stopPropagation()}
             >
                 <div className="modal-header">
-                    <h1>Insert data for the subscription</h1>
+                    {mode === 'create' ? <h1>Create subscription</h1> : <h1>Edit subscription</h1>}
                     <button
                         className="modal-close"
                         onClick={onClose}

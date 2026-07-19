@@ -1,13 +1,20 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { api } from '../../api/api';
 import './SubscriptionForm.scss';
+import type { ISubscription } from '../../types';
 
 
 interface ISubscriptionFormProps {
+    subscription?: ISubscription;
+    mode: "create" | "edit";
     onSuccess: () => void;
 }
 
-const SubscriptionForm = ({onSuccess}: ISubscriptionFormProps) => {
+const SubscriptionForm = ({
+    subscription,
+    mode,
+    onSuccess
+}: ISubscriptionFormProps) => {
     
     const [name, setName] = useState('');
     const [price, setPrice] = useState(0);
@@ -15,30 +22,100 @@ const SubscriptionForm = ({onSuccess}: ISubscriptionFormProps) => {
     const [nextPaymentDate, setNextPaymentDate] = useState('');
     const [isActive, setIsActive] = useState<boolean>(false);
 
+    const onChangeIsActive = () => {
+        setIsActive(!isActive);
+    }
+
+    useEffect(() => {
+        if (!subscription) return;
+
+        setName(subscription?.name ?? "");
+        setPrice(subscription?.price ?? 0);
+        setBillingCycle(subscription?.billingCycle ?? "");
+        setNextPaymentDate(subscription ? new Date(subscription.nextPaymentDate).toISOString().slice(0, 10) : "");
+        setIsActive(subscription?.isActive ?? false);
+    }, [subscription]);
+
+    // const handleCreateSubscription = async (e: React.FormEvent<HTMLFormElement>) => {
+    //     e.preventDefault();
+
+    //     try {
+    //         await api.post('/subscriptions', {
+    //             name,
+    //             price,
+    //             billingCycle,
+    //             nextPaymentDate,
+    //             isActive
+    //         });
+    //         onSuccess();
+    //     } catch(error) {
+    //         console.error(error);
+    //     }
+    // };
+
+    // const handleEditSubscription = async (e: React.FormEvent<HTMLFormElement>) => {
+    //     e.preventDefault();
+
+    //     if(!subscription) return; // or add error message
+
+    //     try {
+    //         await api.patch(`/subscriptions/${subscription?.id}`, {
+    //             name,
+    //             price,
+    //             billingCycle,
+    //             nextPaymentDate,
+    //             isActive
+    //         });
+    //         onSuccess();
+    //     } catch(error) {
+    //         console.error(error);
+    //     }
+    // };
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        try {
-            await api.post('/subscriptions', {
-                name,
-                price,
-                billingCycle,
-                nextPaymentDate,
-                isActive
-            });
-            onSuccess();
-        } catch(error) {
-            console.error(error);
+        if (mode === "create") {
+            try {
+                await api.post('/subscriptions', {
+                    name,
+                    price,
+                    billingCycle,
+                    nextPaymentDate,
+                    isActive
+                });
+                onSuccess();
+            } catch(error) {
+                console.error(error);
+            }
+        } else {
+            if(!subscription) return; // or add error message
+
+            try {
+                await api.patch(`/subscriptions/${subscription?.id}`, {
+                    name,
+                    price,
+                    billingCycle,
+                    nextPaymentDate,
+                    isActive
+                });
+                onSuccess();
+            } catch(error) {
+                console.error(error);
+            }
         }
-    };
+    }
+
+    console.log("subscription: ", subscription)
 
     return (
         <div>
             <form onSubmit={handleSubmit}>
                 <div className='entered-data-block'>
                     <label>Name: </label>
-                    <input 
+                    <input
                         onChange={(e) => {setName(e.target.value)}}
+                        value={name}
                     >
                     </input>                   
                 </div>
@@ -46,6 +123,7 @@ const SubscriptionForm = ({onSuccess}: ISubscriptionFormProps) => {
                     <label>Price: </label>
                     <input
                         onChange={(e) => {setPrice(Number(e.target.value))}}
+                        value={price}
                     >
                     </input>                   
                 </div>
@@ -53,6 +131,7 @@ const SubscriptionForm = ({onSuccess}: ISubscriptionFormProps) => {
                     <label>Billing cycle: </label>
                     <input
                         onChange={(e) => {setBillingCycle(e.target.value)}}
+                        value={billingCycle}
                     >
                     </input>                   
                 </div>
@@ -69,16 +148,13 @@ const SubscriptionForm = ({onSuccess}: ISubscriptionFormProps) => {
                     <label>Is active: </label>
                     <input
                         checked={isActive}
-                        onChange={(e) => setIsActive(e.target.checked)}
+                        onChange={onChangeIsActive}
                         type='checkbox'
                     >
                     </input>                   
                 </div>
-                {/* <div>
-                    <label>Active</label>                   
-                </div> */}
                 <button type='submit'>
-                    Create subscription
+                    {mode === 'create' ? `Create subscription` : `Edit subscription`}
                 </button>
             </form>
         </div>

@@ -66,12 +66,14 @@ const SubscriptionsPage = () => {
             <ModalWindowSubscriptionForm
                 isOpen={isModalOpen}
                 onClose={closeModal}
+                mode='create'
             >
-                <SubscriptionForm 
+                <SubscriptionForm
                     onSuccess={() => {
                         closeModal();
                         getSubscriptions();
                     }}
+                    mode='create'
                 />
             </ModalWindowSubscriptionForm>
         </>
