@@ -36,42 +36,6 @@ const SubscriptionForm = ({
         setIsActive(subscription?.isActive ?? false);
     }, [subscription]);
 
-    // const handleCreateSubscription = async (e: React.FormEvent<HTMLFormElement>) => {
-    //     e.preventDefault();
-
-    //     try {
-    //         await api.post('/subscriptions', {
-    //             name,
-    //             price,
-    //             billingCycle,
-    //             nextPaymentDate,
-    //             isActive
-    //         });
-    //         onSuccess();
-    //     } catch(error) {
-    //         console.error(error);
-    //     }
-    // };
-
-    // const handleEditSubscription = async (e: React.FormEvent<HTMLFormElement>) => {
-    //     e.preventDefault();
-
-    //     if(!subscription) return; // or add error message
-
-    //     try {
-    //         await api.patch(`/subscriptions/${subscription?.id}`, {
-    //             name,
-    //             price,
-    //             billingCycle,
-    //             nextPaymentDate,
-    //             isActive
-    //         });
-    //         onSuccess();
-    //     } catch(error) {
-    //         console.error(error);
-    //     }
-    // };
-
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
