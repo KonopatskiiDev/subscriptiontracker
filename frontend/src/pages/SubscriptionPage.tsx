@@ -13,6 +13,7 @@ const SubscriptionPage = () => {
     const { id } = useParams();
     const [subscription, setSubscription] = useState<ISubscription | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const openModal = () => {
         setIsModalOpen(true);
@@ -22,19 +23,29 @@ const SubscriptionPage = () => {
         setIsModalOpen(false);
     }
 
-    useEffect(() => {
-        const getSubscription = async () => {
+    const getSubscription = async () => {
+        try {
+            setLoading(true);
             const resposne = await api.get(`/subscriptions/${id}`);
             console.log(resposne.data);
             setSubscription(resposne.data);
-        };
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
+    useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         getSubscription();
     }, [id]);
 
     if (!subscription) {
         return <p>Loading...</p>
     }
+
+    if (loading) return <p>Loading...</p>;
 
     return (
         <>
@@ -60,16 +71,11 @@ const SubscriptionPage = () => {
                 mode='edit'
             >
                 <SubscriptionForm 
-                    // subscriptonName={subscription.name}
-                    // subscriptonPrice={subscription.price}
-                    // subscriptonBillingCycle={subscription.billingCycle}
-                    // subscriptonNextPaymentDate={formatDate(subscription.nextPaymentDate)}
-                    // subscriptonIsActive={subscription.isActive}
                     subscription={subscription}
                     mode='edit'
                     onSuccess={() => {
                         closeModal();
-                        //getSubscriptions();
+                        getSubscription();
                     }}
                 />
             </ModalWindowSubscriptionForm>
