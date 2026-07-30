@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { api } from '../api/api';
@@ -7,21 +8,34 @@ import { formatDate } from '../utils/formatDate';
 import './SubscriptionPage.scss'
 import ModalWindowSubscriptionForm from '../components/ModalWindow/ModalWindowSubscriptionForm';
 import SubscriptionForm from '../components/SubscriptionForm/SubscriptionForm';
+import DeleteSubscriptionForm from '../components/SubscriptionForm/DeleteSubscriptionForm';
 
+type ModalMode = 'edit' | 'delete';
 
 const SubscriptionPage = () => {
+    const navigate = useNavigate();
+
     const { id } = useParams();
     const [subscription, setSubscription] = useState<ISubscription | null>(null);
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalOpenEdit, setIsModalOpenEdit] = useState(false);
+    const [isOpenModalDelete, setIsOpenModalDelete] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    const openModal = () => {
-        setIsModalOpen(true);
-    }
+    const openModal = (mode: ModalMode) => {
+        if (mode === 'edit') {
+            setIsModalOpenEdit(true);
+        } else {
+            setIsOpenModalDelete(true);
+        }
+    };
 
-    const closeModal = () => {
-        setIsModalOpen(false);
-    }
+    const closeModal = (mode: ModalMode) => {
+        if (mode === 'edit') {
+            setIsModalOpenEdit(false);
+        } else {
+            setIsOpenModalDelete(false);
+        }
+    };
 
     const getSubscription = async () => {
         try {
@@ -58,24 +72,41 @@ const SubscriptionPage = () => {
             <p>Price: {subscription.price}</p>
             <p>Next Payment Date: {formatDate(subscription.nextPaymentDate)}</p>
             <div className='subscription-actions'>
-                <button onClick={openModal}>
+                <button onClick={() => openModal('edit')}>
                     Edit subscription
+                </button>
+                <button onClick={() => openModal('delete')}>
+                    Delete subscription
                 </button>
                 <Link to="/subscriptions">
                     Back to Subscriptions
                 </Link>
             </div>
             <ModalWindowSubscriptionForm
-                isOpen={isModalOpen}
-                onClose={closeModal}
+                isOpen={isModalOpenEdit}
+                onClose={() => closeModal('edit')}
                 mode='edit'
             >
                 <SubscriptionForm 
                     subscription={subscription}
                     mode='edit'
                     onSuccess={() => {
-                        closeModal();
+                        closeModal('edit');
                         getSubscription();
+                    }}
+                />
+            </ModalWindowSubscriptionForm>
+            <ModalWindowSubscriptionForm
+                isOpen={isOpenModalDelete}
+                onClose={() => closeModal('delete')}
+                mode='delete'
+            >
+                <DeleteSubscriptionForm 
+                    subscription={subscription}
+                    onClose={() => closeModal('delete')}
+                    onSuccess={() => {
+                        closeModal('delete');
+                        navigate('/subscriptions')
                     }}
                 />
             </ModalWindowSubscriptionForm>

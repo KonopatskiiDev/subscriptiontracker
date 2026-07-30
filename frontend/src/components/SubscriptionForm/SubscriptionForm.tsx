@@ -6,7 +6,7 @@ import type { ISubscription } from '../../types';
 
 interface ISubscriptionFormProps {
     subscription?: ISubscription;
-    mode: "create" | "edit";
+    mode: 'create' | 'edit';
     onSuccess: () => void;
 }
 

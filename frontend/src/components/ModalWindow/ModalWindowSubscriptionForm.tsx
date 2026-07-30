@@ -18,7 +18,10 @@ const ModalWindowSubscriptionForm = ({isOpen, onClose, children, mode}: IModalPr
                 onClick={(e) => e.stopPropagation()}
             >
                 <div className="modal-header">
-                    {mode === 'create' ? <h1>Create subscription</h1> : <h1>Edit subscription</h1>}
+                    {mode === 'create' ? <h1>Create subscription</h1> : 
+                        mode === 'edit' ? <h1>Edit subscription</h1> : 
+                        <h1>Delete subscription</h1>
+                    }
                     <button
                         className="modal-close"
                         onClick={onClose}

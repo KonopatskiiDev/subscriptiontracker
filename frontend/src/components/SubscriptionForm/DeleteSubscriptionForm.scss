@@ -1,0 +1,21 @@
+.delete-form-wrapper {
+    padding: 0 1rem 1rem;
+
+    .base-information {
+        h3 {
+            margin: 0 0 10px;
+        }
+        p{
+            margin: 0 0 10px;
+        }
+    }
+
+    .button-wrapper {
+        display: flex;
+        justify-content: flex-end;
+
+        .cancel-button {
+            margin: 0 10px 0 0;
+        }
+    }
+}
