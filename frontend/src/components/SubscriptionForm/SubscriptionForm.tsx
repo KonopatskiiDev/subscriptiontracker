@@ -21,6 +21,12 @@ const SubscriptionForm = ({
     const [billingCycle, setBillingCycle] = useState('');
     const [nextPaymentDate, setNextPaymentDate] = useState('');
     const [isActive, setIsActive] = useState<boolean>(false);
+    const [errors, setErrors] = useState({
+        name: '',
+        price: '',
+        billingCycle: '',
+        nextPaymentDate: ''
+    });
 
     const onChangeIsActive = () => {
         setIsActive(!isActive);
@@ -39,7 +45,40 @@ const SubscriptionForm = ({
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        const newErrors = {
+            name: '',
+            price: '',
+            billingCycle: '',
+            nextPaymentDate: ''
+        }
+
+        if(name.trim() === '') {
+            newErrors.name = 'Name field could not be empty';
+        };
+
+        if(price <= 0) {
+            newErrors.price = 'Price must be greater than 0';
+        };
+
+        if(billingCycle.trim() === '') {
+            newErrors.billingCycle = 'Billing cycle could not be empty';
+        };
+
+        if (nextPaymentDate === '') {
+            newErrors.nextPaymentDate = 'Next payment date could not be empty';
+        };
+
+        setErrors(newErrors);
+
+        if (
+            newErrors.name ||
+            newErrors.price ||
+            newErrors.billingCycle ||
+            newErrors.nextPaymentDate
+        ) return;
+
         if (mode === "create") {
+
             try {
                 await api.post('/subscriptions', {
                     name,
@@ -81,7 +120,8 @@ const SubscriptionForm = ({
                         onChange={(e) => {setName(e.target.value)}}
                         value={name}
                     >
-                    </input>                   
+                    </input>
+                    {errors.name && <p>{errors.name}</p>}              
                 </div>
                 <div className='entered-data-block'>
                     <label>Price: </label>
@@ -89,7 +129,8 @@ const SubscriptionForm = ({
                         onChange={(e) => {setPrice(Number(e.target.value))}}
                         value={price}
                     >
-                    </input>                   
+                    </input>
+                    {errors.price && <p>{errors.price}</p>}                
                 </div>
                 <div className='entered-data-block'>
                     <label>Billing cycle: </label>
@@ -97,7 +138,8 @@ const SubscriptionForm = ({
                         onChange={(e) => {setBillingCycle(e.target.value)}}
                         value={billingCycle}
                     >
-                    </input>                   
+                    </input>
+                    {errors.billingCycle && <p>{errors.billingCycle}</p>}                 
                 </div>
                 <div className='entered-data-block'>
                     <label>Next Payment Date: </label>
@@ -106,7 +148,8 @@ const SubscriptionForm = ({
                         type='date'
                         value={nextPaymentDate}
                     >
-                    </input>                   
+                    </input>
+                    {errors.nextPaymentDate && <p>{errors.nextPaymentDate}</p>}                
                 </div>
                 <div className='entered-data-block'>
                     <label>Is active: </label>
