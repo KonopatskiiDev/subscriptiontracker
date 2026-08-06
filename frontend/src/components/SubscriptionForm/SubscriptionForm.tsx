@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { api } from '../../api/api';
 import './SubscriptionForm.scss';
 import type { ISubscription } from '../../types';
+import toast from 'react-hot-toast';
 
 
 interface ISubscriptionFormProps {
@@ -78,7 +79,6 @@ const SubscriptionForm = ({
         ) return;
 
         if (mode === "create") {
-
             try {
                 await api.post('/subscriptions', {
                     name,
@@ -87,13 +87,14 @@ const SubscriptionForm = ({
                     nextPaymentDate,
                     isActive
                 });
+                toast.success('Subscription created');
                 onSuccess();
             } catch(error) {
+                toast.error('Failed to create subscription')
                 console.error(error);
             }
         } else {
             if(!subscription) return; // or add error message
-
             try {
                 await api.patch(`/subscriptions/${subscription?.id}`, {
                     name,
@@ -102,6 +103,7 @@ const SubscriptionForm = ({
                     nextPaymentDate,
                     isActive
                 });
+                toast.success('Subscription successfully editted');
                 onSuccess();
             } catch(error) {
                 console.error(error);
@@ -115,45 +117,50 @@ const SubscriptionForm = ({
         <div>
             <form onSubmit={handleSubmit}>
                 <div className='entered-data-block'>
-                    <label>Name: </label>
-                    <input
+                    <label>Name<span className='red-star'>*</span>: </label>
+                    <input 
+                        className='entered-data-input'
                         onChange={(e) => {setName(e.target.value)}}
                         value={name}
                     >
                     </input>
-                    {errors.name && <p>{errors.name}</p>}              
+                    {errors.name && <p className='error-message'>{errors.name}</p>}              
                 </div>
                 <div className='entered-data-block'>
-                    <label>Price: </label>
+                    <label>Price<span className='red-star'>*</span>: </label>
                     <input
+                        className='entered-data-input'
                         onChange={(e) => {setPrice(Number(e.target.value))}}
                         value={price}
                     >
                     </input>
-                    {errors.price && <p>{errors.price}</p>}                
+                    {errors.price && <p className='error-message'>{errors.price}</p>}                
                 </div>
                 <div className='entered-data-block'>
-                    <label>Billing cycle: </label>
+                    <label>Billing cycle<span className='red-star'>*</span>: </label>
                     <input
+                        className='entered-data-input'
                         onChange={(e) => {setBillingCycle(e.target.value)}}
                         value={billingCycle}
                     >
                     </input>
-                    {errors.billingCycle && <p>{errors.billingCycle}</p>}                 
+                    {errors.billingCycle && <p className='error-message'>{errors.billingCycle}</p>}                 
                 </div>
                 <div className='entered-data-block'>
-                    <label>Next Payment Date: </label>
+                    <label>Next Payment Date<span className='red-star'>*</span>: </label>
                     <input
+                        className='entered-data-input'
                         onChange={(e) => {setNextPaymentDate(e.target.value)}}
                         type='date'
                         value={nextPaymentDate}
                     >
                     </input>
-                    {errors.nextPaymentDate && <p>{errors.nextPaymentDate}</p>}                
+                    {errors.nextPaymentDate && <p className='error-message'>{errors.nextPaymentDate}</p>}                
                 </div>
                 <div className='entered-data-block'>
                     <label>Is active: </label>
                     <input
+                        className='entered-data-input'
                         checked={isActive}
                         onChange={onChangeIsActive}
                         type='checkbox'
