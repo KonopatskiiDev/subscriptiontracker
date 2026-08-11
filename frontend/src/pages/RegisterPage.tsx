@@ -2,6 +2,8 @@
 import {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../api/api';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const RegisterPage = () => {
 
@@ -23,7 +25,11 @@ const RegisterPage = () => {
         console.log("Response data with registration: ", response.data);
         navigate('/subscriptions');
         } catch (error) {
-            console.error("Error: ", error);
+            if (axios.isAxiosError(error)){
+                toast.error(error.response?.data.message ?? 'Registration failed');
+            } else {
+                toast.error('Something went wrong');
+            }
         }
     };
 

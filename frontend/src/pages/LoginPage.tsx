@@ -2,6 +2,8 @@
 import {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../api/api';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 import './LoginPage.scss';
 
@@ -26,6 +28,11 @@ const LoginPage = () => {
             
             navigate('/subscriptions');
         } catch (error) {
+            if (axios.isAxiosError(error)) {
+                toast.error(error.response?.data.message ?? 'Login gone wrong')
+            } else {
+                toast.error('Something went wrong')
+            }
             console.error("Error occurred:", error);
         }
 

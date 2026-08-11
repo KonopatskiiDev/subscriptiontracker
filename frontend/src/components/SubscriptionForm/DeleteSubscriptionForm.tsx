@@ -2,6 +2,7 @@
 import { api } from '../../api/api';
 import './DeleteSubscriptionForm.scss';
 import type { ISubscription } from '../../types';
+import toast from 'react-hot-toast';
 
 interface ISubscriptionFormProps {
     subscription?: ISubscription;
@@ -22,6 +23,7 @@ const DeleteSubscriptionForm = ({
             await api.delete(`/subscriptions/${subscription?.id}`, {
                 
             });
+            toast.success('Subscription has been successfully deleted');
             onSuccess();
         } catch(error) {
             console.error(error)
