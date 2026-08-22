@@ -4,13 +4,21 @@
     display: flex;
     justify-content: space-between;
     margin: 0 0 1rem;
-    padding: 1rem 0;
+    padding: 1rem;
 
     .navbar_logo {
-        color: inherit;
+        background-color: #FF7A00;
+        border: 1px solid #E2E8F0;
+        border-radius: 5px;
+        
         font-size: 1.25rem;
-        font-weight: 600;
-        text-decoration: none;
+        font-weight: bold;
+        padding: 8px;
+
+        .navbar_logo_link {
+            color: #E2E8F0;
+            text-decoration: none;
+        }
     }
 
     .navbar_links {
@@ -18,10 +26,15 @@
         gap: 1rem;
 
         .navbar_link {
-            color: inherit;
+            background-color: #FF7A00;
+            border: 1px solid #E2E8F0;
+            border-radius: 5px;
+            color: #E2E8F0;
+            font-weight: bold;
+            padding: 8px;
             text-decoration: none;
             &:hover {
-                text-decoration: underline;
+               background-color: #F26422;
             }
         }
     }

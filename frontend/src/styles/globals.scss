@@ -1,6 +1,11 @@
-body {
-    background-color: #F5F7FB;
-    box-sizing: border-box;
+html,
+body,
+#root {
     margin: 0;
-    padding: 0 1rem;
+    min-height: 100vh;
+}
+
+body {
+    background-color: #304972;
+    box-sizing: border-box;
 }
