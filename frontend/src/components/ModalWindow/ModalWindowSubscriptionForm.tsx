@@ -26,7 +26,7 @@ const ModalWindowSubscriptionForm = ({isOpen, onClose, children, mode}: IModalPr
                         className="modal-close"
                         onClick={onClose}
                     >
-                        ×
+                        X
                     </button>
                 </div>
                 

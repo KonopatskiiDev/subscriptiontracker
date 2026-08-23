@@ -62,7 +62,7 @@ const SubscriptionPage = () => {
     if (loading) return <p>Loading...</p>;
 
     return (
-        <>
+        <div className="subscription-page-wrapper">
             <h1>
                 {subscription.name} Subscription Page
             </h1>
@@ -78,7 +78,7 @@ const SubscriptionPage = () => {
                 <button onClick={() => openModal('delete')}>
                     Delete subscription
                 </button>
-                <Link to="/subscriptions">
+                <Link className="subscription-page-link" to="/subscriptions">
                     Back to Subscriptions
                 </Link>
             </div>
@@ -110,7 +110,7 @@ const SubscriptionPage = () => {
                     }}
                 />
             </ModalWindowSubscriptionForm>
-        </>
+        </div>
         
     )
 }

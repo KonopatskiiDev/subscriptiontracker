@@ -5,6 +5,8 @@ import type { ISubscription } from '../types';
 import ModalWindowSubscriptionForm from '../components/ModalWindow/ModalWindowSubscriptionForm';
 import SubscriptionForm from '../components/SubscriptionForm/SubscriptionForm';
 
+import './SubscritpionsPage.scss';
+
 const SubscriptionsPage = () => {
     const [subscriptionsList, setSubscriptionsList] = useState<ISubscription[]>([]);
     const [loading, setLoading] = useState(false);
@@ -40,7 +42,7 @@ const SubscriptionsPage = () => {
     if (error) return <p>{error}</p>;
 
     return (
-        <>
+        <div className="subscriptions-page-wrapper">
             <h1>
                 Subscriptions Page
             </h1>
@@ -49,7 +51,7 @@ const SubscriptionsPage = () => {
                     <ul>
                         {subscriptionsList.map(subscription => (
                             <li key={subscription.id}>
-                                <Link to={`/subscriptions/${subscription.id}`}>
+                                <Link className="list-link" to={`/subscriptions/${subscription.id}`}>
                                     {subscription.name}
                                 </Link>
                             </li>
@@ -77,7 +79,7 @@ const SubscriptionsPage = () => {
                     mode='create'
                 />
             </ModalWindowSubscriptionForm>
-        </>
+        </div>
         
     )
 }

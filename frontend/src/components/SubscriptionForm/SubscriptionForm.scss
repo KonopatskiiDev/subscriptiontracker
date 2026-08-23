@@ -1,22 +1,44 @@
-form {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
+.subscription-form-wrapper {
+    form {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
 
-    .entered-data-block {
-        margin: 0 0 10px;
+        .entered-data-block {
+            margin: 0 0 10px;
 
-        .red-star {
-            color: red;
+            label,
+            span {
+                color: #E2E8F0;
+            }
+
+            .red-star {
+                color: red;
+            }
+            .entered-data-input {
+                margin: 0 0 0.25rem;
+            }
+            .error-message {
+                color: red;
+                font-size: 0.75rem;
+                margin: 0;
+            }
         }
-        .entered-data-input {
-            margin: 0 0 0.25rem;
+
+        .subscription-form-button {
+            background-color: #FF7A00;
+            border: 1px solid #E2E8F0;
+            border-radius: 5px;
+            color: #E2E8F0;
+            font-weight: bold;
+            padding: 8px;
+            width: 40%;
+            &:hover {
+                background-color: #F26422;
+                cursor: pointer;
+            }
         }
-        .error-message {
-            color: red;
-            font-size: 0.75rem;
-            margin: 0;
-        }
+    
     }
 }

@@ -5,6 +5,8 @@ import { api } from '../api/api';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
+import './LoginAndRegisterPage.scss';
+
 const RegisterPage = () => {
 
     const navigate = useNavigate();
@@ -34,11 +36,11 @@ const RegisterPage = () => {
     };
 
     return (
-        <div>
+        <div className="page-wrapper">
             <h1>Register Page</h1>
 
-            <form onSubmit={handleSubmit}>
-                <div>
+            <form className="login-and-register-form" onSubmit={handleSubmit}>
+                <div className="input-group">
                     <label>Email</label>
                     <input
                         onChange={(e) => setEmail(e.target.value)}
@@ -46,7 +48,7 @@ const RegisterPage = () => {
                         value={email}
                     />
                 </div>
-                <div>
+                <div className="input-group">
                     <label>Password</label>
                     <input
                         onChange={(e) => setPassword(e.target.value)}

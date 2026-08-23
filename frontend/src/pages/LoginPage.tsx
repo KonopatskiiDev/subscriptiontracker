@@ -5,7 +5,7 @@ import { api } from '../api/api';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
-import './LoginPage.scss';
+import './LoginAndRegisterPage.scss';
 
 const LoginPage = () => {
     const navigate = useNavigate();
@@ -39,10 +39,10 @@ const LoginPage = () => {
     };
 
     return (
-        <div className="login-page">
+        <div className="page-wrapper">
             <h1>Login Page</h1>
 
-            <form className="login-form" onSubmit={handleSubmit}>
+            <form className="login-and-register-form" onSubmit={handleSubmit}>
                 <div className="input-group">
                     <label>Email</label>
                     <input

@@ -7,30 +7,38 @@
     position: fixed;
 
     .modal-content {
-        background: white;
-        border-radius: 10px;
+        background-color: #3B5A8A;
+        border: 1px solid #E2E8F0;
+        border-radius: 8px;
         min-width: 500px;
-        //padding: 1rem;
         position: relative;
 
         .modal-header {
             align-items: center;
-            border-bottom: 1px solid rgba(0,0,0,.5);
+            border-bottom: 1px solid #E2E8F0;
             display: flex;
             justify-content: space-between;
             margin: 0 0 1rem;
             padding: 1rem;
 
             h1 {
+                color: #E2E8F0;
                 font-size: 24px;
                 margin: 0;
             }
 
             .modal-close {
-                height: 2rem;
-                // position: absolute;
-                // right: 15px;
-                // top: 15px;
+                background-color: #FF7A00;
+                border: 1px solid #E2E8F0;
+                border-radius: 5px;
+                color: #E2E8F0;
+                font-weight: bold;
+                padding: 8px;
+                width: 10%;
+                &:hover {
+                    background-color: #F26422;
+                    cursor: pointer;
+                }
             }
         }
         

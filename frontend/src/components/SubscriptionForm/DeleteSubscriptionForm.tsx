@@ -47,6 +47,7 @@ const DeleteSubscriptionForm = ({
                     Cancel
                 </button>
                 <button 
+                    className="delete-button"
                     type="submit"
                 >
                     Delete

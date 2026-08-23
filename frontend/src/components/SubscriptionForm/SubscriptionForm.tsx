@@ -114,7 +114,7 @@ const SubscriptionForm = ({
     console.log("subscription: ", subscription)
 
     return (
-        <div>
+        <div className="subscription-form-wrapper">
             <form onSubmit={handleSubmit}>
                 <div className='entered-data-block'>
                     <label>Name<span className='red-star'>*</span>: </label>
@@ -167,7 +167,7 @@ const SubscriptionForm = ({
                     >
                     </input>                   
                 </div>
-                <button type='submit'>
+                <button className="subscription-form-button" type='submit'>
                     {mode === 'create' ? `Create subscription` : `Edit subscription`}
                 </button>
             </form>
