@@ -36,6 +36,20 @@
                background-color: #F26422;
             }
         }
+
+        .navbar-button {
+            border: 1px solid #E2E8F0;
+            border-radius: 5px;
+            color: #304972;
+            font-weight: bold;
+            margin: 0 10px 0 0;
+            padding: 8px;
+            &:hover {
+                background-color: #304972;
+                color:  #E2E8F0;
+                cursor: pointer;
+            }
+        }
     }
 
 

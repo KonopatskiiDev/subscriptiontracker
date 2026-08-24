@@ -18,6 +18,11 @@
     .subscription-actions {
         align-items: center;
         display: flex;
+        @media (max-width: 1024px) {
+            align-items: flex-start;
+            flex-direction: column;
+            justify-content: center;
+        }
         //width: 40%;
 
         button {
@@ -34,12 +39,18 @@
                 background-color: #F26422;
                 cursor: pointer;
             }
+            @media (max-width: 1024px) {
+                margin: 0 0 1rem;
+                width: 20%;
+            }
         }
 
         .subscription-page-link {
             border: 1px solid #E2E8F0;
             border-radius: 5px;
             color: #E2E8F0;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 13.33px;
             font-weight: bold;
             padding: 8px;
             text-align: center;
@@ -49,6 +60,9 @@
                 background-color: #E2E8F0;
                 color: #304972;
                 cursor: pointer;
+            }
+            @media (max-width: 1024px) {
+                width: 20%;
             }
         }
     }

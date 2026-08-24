@@ -4,12 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import { api } from '../api/api';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { useAuth } from '../context/AuthContext';
 
 import './LoginAndRegisterPage.scss';
 
 const RegisterPage = () => {
 
     const navigate = useNavigate();
+    const { refreshUser } = useAuth();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -25,6 +27,7 @@ const RegisterPage = () => {
             }
         )
         console.log("Response data with registration: ", response.data);
+        await refreshUser();
         navigate('/subscriptions');
         } catch (error) {
             if (axios.isAxiosError(error)){

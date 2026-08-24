@@ -4,11 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import { api } from '../api/api';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { useAuth } from '../context/AuthContext';
 
 import './LoginAndRegisterPage.scss';
 
 const LoginPage = () => {
     const navigate = useNavigate();
+    const { refreshUser } = useAuth();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -23,8 +25,10 @@ const LoginPage = () => {
                     email, 
                     password
                 }
-            )
+            );
             console.log("response data:", response.data);
+
+            await refreshUser();
             
             navigate('/subscriptions');
         } catch (error) {
