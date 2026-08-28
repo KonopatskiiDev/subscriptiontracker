@@ -94,7 +94,7 @@ const SubscriptionForm = ({
                 console.error(error);
             }
         } else {
-            if(!subscription) return; // or add error message
+            if(!subscription) return;
             try {
                 await api.patch(`/subscriptions/${subscription?.id}`, {
                     name,
