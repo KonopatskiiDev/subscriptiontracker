@@ -14,7 +14,7 @@ async function bootstrap() {
     })
   )
   app.enableCors({
-    origin: 'http://localhost:5173',
+    origin: 'https://frontend-production-f7ec.up.railway.app',
     credentials: true
   })
   await app.listen(process.env.PORT ?? 3000);
