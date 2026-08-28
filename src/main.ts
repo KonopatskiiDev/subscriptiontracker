@@ -9,6 +9,7 @@ async function bootstrap() {
     keys: ['my-secret-key'],
     sameSite: 'none',
     secure: true,
+    httpOnly: true,
   }))
   app.useGlobalPipes(
     new ValidationPipe({
