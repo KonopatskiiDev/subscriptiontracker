@@ -4,6 +4,8 @@ import { api } from '../api/api';
 import type { ISubscription } from '../types';
 import ModalWindowSubscriptionForm from '../components/ModalWindow/ModalWindowSubscriptionForm';
 import SubscriptionForm from '../components/SubscriptionForm/SubscriptionForm';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 import './SubscritpionsPage.scss';
 
@@ -19,7 +21,11 @@ const SubscriptionsPage = () => {
             const response = await api.get('/subscriptions');
             setSubscriptionsList(response.data);
         } catch (error) {
-            setError('Error has occured: ' + error);
+            if (axios.isAxiosError(error)){
+                setError('Error has occured: ' + (error.response?.data.message));
+            } else {
+                toast.error('Something went wrong');
+            }
         } finally {
             setLoading(false);
         }
@@ -38,8 +44,8 @@ const SubscriptionsPage = () => {
         setIsModalOpen(false);
     }
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>{error}</p>;
+    if (loading) return <p className="subscriptions-outter-paragraph">Loading...</p>;
+    if (error) return <p className="subscriptions-outter-paragraph">{error}</p>;
 
     return (
         <div className="subscriptions-page-wrapper">

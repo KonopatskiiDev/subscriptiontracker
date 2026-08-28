@@ -9,6 +9,8 @@ import './SubscriptionPage.scss'
 import ModalWindowSubscriptionForm from '../components/ModalWindow/ModalWindowSubscriptionForm';
 import SubscriptionForm from '../components/SubscriptionForm/SubscriptionForm';
 import DeleteSubscriptionForm from '../components/SubscriptionForm/DeleteSubscriptionForm';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 type ModalMode = 'edit' | 'delete';
 
@@ -20,6 +22,7 @@ const SubscriptionPage = () => {
     const [isModalOpenEdit, setIsModalOpenEdit] = useState(false);
     const [isOpenModalDelete, setIsOpenModalDelete] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
 
     const openModal = (mode: ModalMode) => {
         if (mode === 'edit') {
@@ -44,7 +47,12 @@ const SubscriptionPage = () => {
             console.log(resposne.data);
             setSubscription(resposne.data);
         } catch (error) {
-            console.error(error);
+            if (axios.isAxiosError(error)){
+                setError('Error has occured: ' + error.response?.data.message);
+            } else {
+                toast.error('Something went wrong');
+            }
+            //console.error(error);
         } finally {
             setLoading(false);
         }
@@ -56,7 +64,7 @@ const SubscriptionPage = () => {
     }, [id]);
 
     if (!subscription) {
-        return <p>Loading...</p>
+        return <p className="subscription-outter-paragraph">{error}</p>
     }
 
     if (loading) return <p>Loading...</p>;
