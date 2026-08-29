@@ -7,7 +7,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.getHttpAdapter().getInstance().set('trust proxy', 1);
   app.use(cookieSession({
-    keys: ['my-secret-key'],
+    keys: [process.env.SESSION_SECRET],
     sameSite: 'none',
     secure: true,
     httpOnly: true,
